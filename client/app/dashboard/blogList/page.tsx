@@ -35,7 +35,7 @@ interface PostsListProps {
   userId: string;
 }
 
-export function PostsList({ userId }: PostsListProps) {
+function PostsList({ userId }: PostsListProps) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<FetchError | null>(null);
@@ -129,7 +129,7 @@ export function PostsList({ userId }: PostsListProps) {
   );
 }
 
-export function LoadingSpinner() {
+function LoadingSpinner() {
   return (
     <div className="flex items-center justify-center py-8">
       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
