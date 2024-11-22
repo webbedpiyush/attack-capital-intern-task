@@ -4,18 +4,22 @@ import Sidebar from "@/components/Sidebar";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import { CircleUserRound, LogOut } from "lucide-react";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface LayoutWrapperProps {
   children: React.ReactNode;
 }
 
 export default function Layout({ children }: LayoutWrapperProps) {
-  const searchParams = useSearchParams();
-  const userId = searchParams.get("userId") || "Guest";
   const router = useRouter();
-  
+  const [userId, setUserId] = useState("");
 
+  useEffect(function () {
+    const user = localStorage.getItem("userId")!;
+    console.log(userId);
+    setUserId(user);
+  }, []);
   function logoutFunction() {
     const token = localStorage.getItem("token");
     if (token) {

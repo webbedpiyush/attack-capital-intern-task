@@ -13,7 +13,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,13 +31,14 @@ export default function Login() {
       });
 
       const data = await response.json();
-      console.log(data)
+      console.log(data);
       if (!response.ok) {
         throw new Error(data.error || "Login failed");
       }
 
       // redirect it to the dashboard page
       localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.user.id);
       router.push(`/dashboard?userId=${data.user.id}`);
     } catch (error: any) {
       setLoading(false);

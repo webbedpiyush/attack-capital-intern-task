@@ -14,7 +14,7 @@ interface ApiError {
   message: string;
 }
 
-export default function CreateBlogPage() {
+export default function Page() {
   const router = useRouter();
   const { toast } = useToast();
   const [formData, setFormData] = useState<BlogFormData>({
