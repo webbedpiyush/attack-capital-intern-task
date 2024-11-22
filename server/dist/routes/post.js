@@ -48,7 +48,7 @@ postRouter.post("/post", authenticateToken, (req, res) => __awaiter(void 0, void
         res.status(400).json({ error: error.message });
     }
 }));
-postRouter.get("/posts", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+postRouter.get("/getAllPost", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const posts = yield (0, query_1.getAllPosts)();
         res.status(200).json(posts);

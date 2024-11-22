@@ -10,7 +10,7 @@ export default function Header() {
           href={"/"}
           className="text-2xl font-bold text-black dark:text-white"
         >
-          Intern-Task
+          Attack-Capital-Intern-Task
         </Link>
         <div className="flex gap-4 items-center">
           <Link href="/login">

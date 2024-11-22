@@ -1,15 +1,59 @@
+"use client";
+import { AuthCheck } from "@/components/AuthCheck";
 import Sidebar from "@/components/Sidebar";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
+import { CircleUserRound, LogOut } from "lucide-react";
 
-export default function layout({ children }: { children: React.ReactNode }) {
+import { useRouter, useSearchParams } from "next/navigation";
+
+interface LayoutWrapperProps {
+  children: React.ReactNode;
+}
+
+export default function Layout({ children }: LayoutWrapperProps) {
+  const searchParams = useSearchParams();
+  const userId = searchParams.get("userId") || "Guest";
+  const router = useRouter();
+
+  function logoutFunction() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      localStorage.removeItem("token");
+      router.push("/");
+    }
+  }
   return (
-    <>
-      <div className="flex">
-        <Sidebar />
-        <div className="flex flex-col w-full">
-         
-          {children}
+    <AuthCheck>
+      <div className="min-h-screen bg-gray-50 dark:bg-black">
+        <div className="flex">
+          {/* Sidebar */}
+          <div className="hidden md:block h-screen sticky top-0">
+            <Sidebar userId={userId} />
+          </div>
+
+          
+          <div className="flex-1 flex flex-col min-h-screen">
+            
+            <div className="md:hidden">
+              <Sidebar userId={userId} />
+            </div>
+
+            
+            <main className="flex-1">
+              <div className="flex items-center justify-between w-full py-3 max-h-[60px] px-12 border-b border-black dark:border-white">
+                <h3 className="font-medium ml-2">Dashboard</h3>
+                <div className="flex items-center gap-3 justify-end">
+                  <span className="text-lg md:text-2xl">User ID: {userId}</span>
+                  <CircleUserRound size={40} />
+                  <ThemeSwitcher />
+                  <LogOut onClick={logoutFunction} />
+                </div>
+              </div>
+              {children}
+            </main>
+          </div>
         </div>
       </div>
-    </>
+    </AuthCheck>
   );
 }

@@ -38,7 +38,7 @@ postRouter.post("/post", authenticateToken, async (req: any, res: any) => {
   }
 });
 
-postRouter.get("/posts", async (req: any, res: any) => {
+postRouter.get("/getAllPost", async (req: any, res: any) => {
   try {
     const posts = await getAllPosts();
     res.status(200).json(posts);

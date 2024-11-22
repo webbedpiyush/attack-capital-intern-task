@@ -32,7 +32,7 @@ authRouter.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, functi
     const { email, password } = req.body;
     console.log(email);
     try {
-        const result = yield (0, query_1.loginUser)(email, password, "something");
+        const result = yield (0, query_1.loginUser)(email, password, process.env.JWT_SECRET);
         res.status(200).json(result);
     }
     catch (error) {

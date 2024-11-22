@@ -1,16 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
+import React, { useState } from "react";
 
 export default function page() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const { toast } = useToast();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     const token = localStorage.getItem("token");
 
     if (!token) {
-      // show a toast
+      toast({
+        variant: "destructive",
+        title: "no token available",
+      });
       return;
     }
 
@@ -26,14 +33,24 @@ export default function page() {
 
       const data = await response.json();
       if (response.ok) {
-        // show a toast
-       
+        toast({
+          variant: "default",
+          className: cn("bg-green-500"),
+          title: "blog created Successfully!!",
+        });
+        setTitle("");
+        setContent("");
       } else {
-        // show a error toast
-        
+        toast({
+          variant: "destructive",
+          title: "error happened while creating blog",
+        });
       }
     } catch (error: any) {
-      // show a toast
+      toast({
+        variant: "destructive",
+        title: error.message,
+      });
     }
   };
   return (
@@ -41,7 +58,7 @@ export default function page() {
       <form className="pt-5 px-5 sm:pt-12 sm:pl-16" onSubmit={handleSubmit}>
         <p className="text-xl">Blog title</p>
         <input
-          className="w-full sm:w-[500px] mt-4 px-4 py-3 border"
+          className="w-full sm:w-[500px] mt-4 px-4 py-3 border dark:text-black"
           type="text"
           placeholder="Type here"
           value={title}
@@ -50,7 +67,7 @@ export default function page() {
         />
         <p className="text-xl mt-5">Blog Content</p>
         <textarea
-          className="w-full sm:w-[500px] mt-4 px-4 py-3 border"
+          className="w-full sm:w-[500px] mt-4 px-4 py-3 border dark:text-black"
           placeholder="write content here"
           rows={6}
           value={content}
@@ -60,7 +77,7 @@ export default function page() {
         <br />
         <button
           type="submit"
-          className="text-xl mt-8 w-40 h-12 bg-black text-white rounded-2xl"
+          className="text-xl mt-8 w-40 h-12 bg-black dark:bg-white text-white dark:text-black rounded-2xl"
         >
           Add
         </button>

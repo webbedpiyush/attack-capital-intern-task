@@ -6,7 +6,6 @@ const authRouter = express.Router();
 authRouter.post("/signup", async (req: any, res: any) => {
   const { email, password } = req.body;
 
-
   try {
     const user = await registerUser(email, password);
     res.status(201).json({
@@ -20,7 +19,7 @@ authRouter.post("/signup", async (req: any, res: any) => {
 
 authRouter.post("/login", async (req: any, res: any) => {
   const { email, password } = req.body;
-  console.log(email)
+  console.log(email);
 
   try {
     const result = await loginUser(email, password, process.env.JWT_SECRET!);
