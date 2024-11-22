@@ -148,6 +148,6 @@ The application is optimized for deployment on:
 
 - **Frontend:** [Vercel](https://vercel.com) for fast and scalable hosting.
 - **Backend:** Vercel Serverless Functions for server-side operations.
-- **Database:** PostgreSQL providers like [Supabase](https://supabase.com) or [Railway](https://railway.app) or [NeonDb](https.//neon.tech).
+- **Database:** PostgreSQL providers like [Supabase](https://supabase.com) or [Railway](https://railway.app) or [NeonDb](https://neon.tech).
 
 ---
