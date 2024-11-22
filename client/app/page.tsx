@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 
 async function fetchPosts() {
   try {
-    const response = await fetch(`${process.env.BACKEND_API_URL}/getAllPost`, {
+    const response = await fetch(`${process.env.NEXT_BACKEND_API_URL}/getAllPost`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
