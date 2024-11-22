@@ -17,7 +17,7 @@ export default function Page() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<FetchError | null>(null);
-  const [userId, setUserId] = useState(localStorage.getItem("userId"));
+  const [userId, setUserId] = useState();
   const [author, setAuthor] = useState<Number>(Number(userId));
 
   // const userId = searchParams.userId || "Guest";
@@ -28,13 +28,16 @@ export default function Page() {
   useEffect(() => {
     // Get token from localStorage on component mount
     const storedToken = localStorage.getItem("token");
+    const user = localStorage.getItem("userId");
+    console.log(user);
+    setAuthor(Number(user));
     if (storedToken) {
       setToken(storedToken);
     } else {
       setLoading(false);
       setError({ message: "Authentication required" });
     }
-  }, []);
+  }, [author]);
 
   const handleFetchPosts = async () => {
     if (!token) {
@@ -45,6 +48,7 @@ export default function Page() {
 
     try {
       // Updated to match the correct API endpoint structure (/api/posts)
+      console.log(author);
       const response = await fetch(`/api/post/fetchPosts?author=${author}`, {
         method: "GET",
         headers: {
@@ -97,7 +101,11 @@ export default function Page() {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Posts of Author:{userId}</h1>
+      {!Number.isNaN(Number(author)) && (
+        <h1 className="text-2xl font-bold mb-4">
+          Posts of Author:{Number(author)}
+        </h1>
+      )}
 
       {loading ? (
         <div className="flex items-center justify-center py-8">
