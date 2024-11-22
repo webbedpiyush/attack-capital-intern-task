@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const API_URL = process.env.BACKEND_API_URL;
+const API_URL = process.env.NEXT_BACKEND_API_URL;
 
 export async function POST(request: NextRequest) {
   const token = request.headers.get('authorization')?.split(' ')[1];
